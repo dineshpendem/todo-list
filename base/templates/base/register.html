@@ -1,0 +1,47 @@
+{% extends 'base/main.html' %} 
+{% block content %}
+
+<div class="header-bar">
+  <h1>Register</h1>
+</div>
+
+<div class="card-body">
+  <form method="POST">
+    {% csrf_token %}
+   
+    <label>{{form.username.label}}</label>
+    {{form.username}}
+    {% if form.errors %}
+    {% for field, errors in form.errors.items %}
+        {% if field == "username" %}
+            {% for error in errors %}
+                <p style='color:red;font-family:san-serif'>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+    <label>{{form.password1.label}}</label>
+    {{form.password1}}
+
+    <label>{{form.password2.label}}</label>
+    {{form.password2}}
+    {% if form.errors %}
+    {% for field, errors in form.errors.items %}
+        {% if field == "password2" %}
+            {% for error in errors %}
+                <p style='color:red;font-family:san-serif'>{{ error }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+    <input
+      style="margin-top: 10px"
+      class="button"
+      type="submit"
+      value="Register"
+    />
+  </form>
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+ 
+</div>
+{% endblock %}
